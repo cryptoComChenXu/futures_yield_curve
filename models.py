@@ -80,9 +80,11 @@ if __name__ == "__main__":
 
         fut_prc = (df_tmp["a1"] + df_tmp["b1"]) / 2.0
         spot_prc = (df_tmp["a1_spot"] + df_tmp["b1_spot"]) / 2.0
+        ttm = df_tmp["ttm"]
 #        yields = list((fut_prc.div(spot_prc) - 1.0).div(df_tmp["ttm"]).values)
 #        yields = list((fut_prc.div(spot_prc) - 1.0).values)
-        yields = list(np.log(fut_prc / spot_prc))
+#        yields = list(np.log(fut_prc / spot_prc))
+        yields = list(np.log(fut_prc / spot_prc) / ttm)
 
         ttms = list(df_tmp["ttm"].values)
 
@@ -96,3 +98,5 @@ if __name__ == "__main__":
             yields)
 
         print(bar, yld, ttm)
+        prc = np.exp(yld * ttm) * spot_prc.values[0]
+        print(f"prc: {prc}")
