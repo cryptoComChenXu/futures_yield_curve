@@ -81,7 +81,8 @@ if __name__ == "__main__":
         fut_prc = (df_tmp["a1"] + df_tmp["b1"]) / 2.0
         spot_prc = (df_tmp["a1_spot"] + df_tmp["b1_spot"]) / 2.0
 #        yields = list((fut_prc.div(spot_prc) - 1.0).div(df_tmp["ttm"]).values)
-        yields = list((fut_prc.div(spot_prc) - 1.0).values)
+#        yields = list((fut_prc.div(spot_prc) - 1.0).values)
+        yields = list(np.log(fut_prc / spot_prc))
 
         ttms = list(df_tmp["ttm"].values)
 
