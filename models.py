@@ -12,12 +12,17 @@ def linear_interpolation(
     timestamp: str,
     expiration: str,
     contracts: List[str],
-    ttms: List[float],
-    yields: List[float]) -> Tuple[float, float]:
+    yields: List[float],
+    ttms: List[float]) -> Tuple[float, float]:
 
-    if not yields or not ttms:
+    if not len(yields) > 0 or not len(ttms) > 0 :
         print("Empty data!")
         return 0, 0
+
+    if not len(yields) == len(ttms) == len(contracts):
+        print("Wrong data!")
+        return 0, 0
+
 
     # print(f"Current time: {timestamp}")
     # print(f"Expiration time: {expiration}")
@@ -53,6 +58,7 @@ def linear_interpolation(
     except Exception as e:
         print(f"Couldn't do interpolation using x1={x1}, y1={y1}, x2={x2}, y2={y2}")
         
+    print(f"y1={y1}, y={y}, y2={y2}")
     return y, ttm
 
 
@@ -97,8 +103,8 @@ if __name__ == "__main__":
             bar.strftime("%Y-%m-%d %H:%M:%S"),
             TEST_CONTRACT,
             contracts,
-            ttms,
-            yields)
+            yields,
+            ttms)
 
         print(bar, yld, ttm)
         prc = calc_prc(spot_prc.values[0], yld, ttm)
