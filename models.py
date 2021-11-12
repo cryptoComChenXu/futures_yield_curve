@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from typing import Tuple, List, Dict
 import bisect
 
+def calc_prc(spot: float, yld: float, ttm: float) -> float:
+    return np.exp(yld * ttm) * spot
+
 def linear_interpolation(
     timestamp: str,
     expiration: str,
@@ -98,5 +101,5 @@ if __name__ == "__main__":
             yields)
 
         print(bar, yld, ttm)
-        prc = np.exp(yld * ttm) * spot_prc.values[0]
+        prc = calc_prc(spot_prc.values[0], yld, ttm)
         print(f"prc: {prc}")
